@@ -3,64 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Educational Website</title>
+    <title>Hindi Sahitya Darpan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f8ff;
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc;
             color: #333;
         }
-        header {
-            background-color: #2a9d8f;
-            color: #fff;
-            padding: 10px 20px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-        nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 14px 20px;
-            font-size: 1.1em;
-        }
-        nav a:hover {
-            background-color: #1f6f5c;
-            border-radius: 4px;
-        }
-        .hero {
-            background-color: #264653;
-            color: #fff;
-            text-align: center;
-            padding: 100px 20px 60px;
-            margin-top: 60px; /* Adjust for fixed header */
-        }
-        .hero h1 {
-            font-size: 3em;
-            margin: 0;
-        }
-        .hero p {
-            font-size: 1.2em;
-        }
-        .info-section {
-            display: flex;
-            justify-content: space-around;
-            padding: 40px 20px;
-            text-align: center;
-        }
-        .info-box {
-            background-color: #e9c46a;
-            color: #333;
-            padding: 20px;
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Header and Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- Website Title -->
+            <a href="#" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 transition-colors duration-300">
+                हिंदी साहित्य दर्पण
+            </a>
+            
+            <!-- Navigation Links -->
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-indigo-700 transition-colors duration-300 font-medium hidden md:block">गृह पृष्ठ</a>
+
+                <!-- Notes Dropdown -->
+                <div class="relative">
+                    <button id="notes-button" class="py-2 px-4 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        नोट्स
+                    </button>
+                    <!-- Dropdown Content -->
+                    <div id="notes-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-1 transition-opacity duration-300 opacity-0 invisible">
+                        <a href="i9.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md m-1">कक्षा 11</a>
+                        <a href="i1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md m-1">कक्षा 12</a>
+                    </div>
+                </div>
+        </div>
+        </nav>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="container mx-auto px-4 py-12 md:py-24">
+        <!-- Hero Section -->
+        <section class="text-center mb-16 md:mb-24">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+                हिंदी साहित्य की दुनिया में आपका स्वागत है
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+                कक्षा 11 और 12 के छात्रों के लिए विशेष रूप से तैयार की गई अध्ययन सामग्री, नोट्स और अभ्यास प्रश्न। अपनी यात्रा आज ही शुरू करें!
+            </p>
+            <button class="bg-indigo-600 text-white py-3 px-8 rounded-full font-bold text-lg hover:bg-indigo-700 transition-transform duration-300 transform hover:scale-105 shadow-lg">
+                अध्ययन सामग्री देखें
+            </button>
+        </section>
+
+        <!-- Material Sections -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <!-- Class 11 Section -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-300 hover:scale-[1.02]">
+                <h2 class="text-3xl font-bold text-indigo-700 mb-4">कक्षा 11</h2>
+                <p class="text-gray-600 mb-6">
+                    यहां आपको गद्य, पद्य और पूरक पुस्तक से संबंधित नोट्स, सारांश, और महत्वपूर्ण प्रश्न मिलेंगे। कविता की व्याख्या से लेकर कहानी के पात्रों के विश्लेषण तक, सब कुछ एक ही स्थान पर उपलब्ध है।
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>गद्य खंड: नमक का दारोगा, जामुन का पेड़, आदि।</li>
+                    <li>पद्य खंड: कबीर, मीरा, तुलसीदास, आदि।</li>
+                    <li>व्याकरण: रस, छंद, अलंकार।</li>
+                </ul>
+            </div>
+
+            <!-- Class 12 Section -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-300 hover:scale-[1.02]">
+                <h2 class="text-3xl font-bold text-indigo-700 mb-4">कक्षा 12</h2>
+                <p class="text-gray-600 mb-6">
+                    यह अनुभाग कक्षा 12 के छात्रों के लिए विशेष रूप से डिज़ाइन किया गया है, जिसमें साहित्य, व्याकरण और लेखन कौशल पर गहन अध्ययन सामग्री शामिल है। अपनी परीक्षा की तैयारी को नई दिशा दें।
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>गद्य खंड: पहलवान की ढोलक, चार्ली चैप्लिन, आदि।</li>
+                    <li>पद्य खंड: हरिवंश राय बच्चन, शमशेर बहादुर सिंह, आदि।</li>
+                    <li>अभिव्यक्ति और माध्यम: विभिन्न लेखन कौशल।</li>
+                </ul>
+            </div>
+        </section>
+        
+           
+        <!-- Creator and Mentor Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <!-- Creator Section -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-[1.02]">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">वेबसाइट के निर्माता</h2>
+                <div class="w-36 h-36 flex-shrink-0 rounded-full overflow-hidden mb-4">
+                    <img src="https://placehold.co/500x500/A1B2D4/000000?text=Creator" alt="Creator Photo" class="w-full h-full object-cover">
+                </div>
+                <p class="text-lg text-gray-600 font-medium"> अथर्व शुक्ला </p>
+            </div>
+
+            <!-- Mentored By Section -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-[1.02]">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4"> मार्गदर्शक </h2>
+                <div class="w-36 h-36 flex-shrink-0 rounded-full overflow-hidden mb-4">
+                    <img src="https://placehold.co/500x500/A1B2D4/000000?text=Mentor" alt="Mentor Photo" class="w-full h-full object-cover">
+                </div>
+                <p class="text-lg text-gray-600 font-medium"> आशीष सिंह </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-sm">
+            &copy; 2024 हिंदी साहित्य दर्पण। सभी अधिकार सुरक्षित।
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const notesButton = document.getElementById('notes-button');
+            const notesDropdown = document.getElementById('notes-dropdown');
+
+            notesButton.addEventListener('click', (event) => {
+                notesDropdown.classList.toggle('opacity-0');
+                notesDropdown.classList.toggle('invisible');
+                // Prevent the click from propagating and closing the dropdown immediately
+                event.stopPropagation();
+            });
+
+            // Close the dropdown if the user clicks outside of it
+            document.addEventListener('click', (event) => {
+                if (!notesButton.contains(event.target) && !notesDropdown.contains(event.target)) {
+                    notesDropdown.classList.add('opacity-0');
+                    notesDropdown.classList.add('invisible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             width: 30%;
@@ -273,6 +355,7 @@ body {
 
     </body>
 </html>
+
 
 
 
