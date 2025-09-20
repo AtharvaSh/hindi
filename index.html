@@ -3,134 +3,329 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hindi Sahitya Darpan</title>
+    <title>अभिव्यक्ति: A Celestial Journey</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        :root {
+            --glow-primary: rgba(124, 58, 237, 0.8);
+            --glow-secondary: rgba(217, 70, 239, 0.8);
+            --dark-bg: #030014;
+            --text-color: #E0E0E0;
+            --card-bg: rgba(16, 14, 38, 0.5);
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f9fc;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            overflow-x: hidden;
+            cursor: none; /* Hide default cursor */
+        }
+
+        /* --- Animated Backgrounds & Effects --- */
+        #starfield-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, var(--glow-primary), transparent 40%),
+                        radial-gradient(circle at 80% 90%, var(--glow-secondary), transparent 40%);
+            z-index: -1;
+            animation: aurora-pan 30s infinite alternate ease-in-out;
+            opacity: 0.3;
+            filter: blur(100px);
+        }
+        @keyframes aurora-pan {
+            0% { transform: translate(-20%, -20%) scale(1.2); }
+            100% { transform: translate(20%, 20%) scale(1.5); }
+        }
+        
+        /* --- Custom Cursor --- */
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease-out;
+        }
+        #cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.3s ease-out;
+        }
+        body:has(a:hover, button:hover, .class-card:hover) #cursor-outline {
+            transform: translate(-50%, -50%) scale(1.5);
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* --- Navigation --- */
+        .sticky-nav.scrolled {
+            background-color: rgba(3, 0, 20, 0.7);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- Animations --- */
+        .hero-title, .hero-subtitle, .hero-buttons { animation: text-focus-in 1.2s cubic-bezier(0.550, 0.085, 0.680, 0.530) both; }
+        .hero-subtitle { animation-delay: 0.5s; }
+        .hero-buttons { animation-delay: 1s; }
+        @keyframes text-focus-in {
+            0% { filter: blur(12px); opacity: 0; }
+            100% { filter: blur(0px); opacity: 1; }
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .scroll-reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        /* --- Card Styles --- */
+        .magic-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .magic-card:before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(124, 58, 237, 0.3), transparent 20%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+        .magic-card:hover:before {
+            opacity: 1;
+        }
+        .magic-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 0 40px rgba(124, 58, 237, 0.3), 0 0 80px rgba(217, 70, 239, 0.2);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+        .magic-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- Poetic Interlude --- */
+        .typewriter {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 700;
+            line-height: 1.6;
+            max-width: 3xl;
+            margin: auto;
+            color: #f3e8ff;
+            text-shadow: 0 0 10px rgba(217, 70, 239, 0.5), 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* --- Profile Cards --- */
+        .profile-image-container {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--dark-bg), var(--dark-bg)) padding-box,
+                        linear-gradient(45deg, var(--glow-primary), var(--glow-secondary)) border-box;
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.5);
+            animation: pulse-glow 3s infinite ease-in-out;
+        }
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(124, 58, 237, 0.8), 0 0 80px rgba(217, 70, 239, 0.4); }
+            100% { box-shadow: 0 0 30px rgba(124, 58, 237, 0.5); }
+        }
+        .profile-svg {
+            transition: transform 0.5s ease;
+        }
+        .magic-card:hover .profile-svg {
+            transform: scale(1.1);
+        }
+
+        .glow-button {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #4f46e5, #7c3aed);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(79, 70, 229, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 30px rgba(79, 70, 229, 0.8), 0 0 50px rgba(124, 58, 237, 0.5);
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body class="overflow-x-hidden">
 
+    <!-- Background Elements -->
+    <canvas id="starfield-canvas"></canvas>
+    <div class="aurora"></div>
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+    <div id="cursor-outline"></div>
+
     <!-- Header and Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <!-- Website Title -->
-            <a href="#" class="text-2xl font-bold text-indigo-700 hover:text-indigo-900 transition-colors duration-300">
-                अभिव्यक्ति: CBSE हिंदी 
+    <header id="main-header" class="sticky-nav bg-transparent transition-all duration-300 fixed w-full top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-4xl font-black text-white hover:text-fuchsia-400 transition-colors duration-300 font-['Playfair_Display']" style="text-shadow: 0 0 10px var(--glow-secondary);">
+                अभिव्यक्ति
             </a>
             
-            <!-- Navigation Links -->
             <div class="flex items-center space-x-6">
-                <a href="#" class="text-gray-600 hover:text-indigo-700 transition-colors duration-300 font-medium hidden md:block">गृह पृष्ठ</a>
+                <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 font-medium hidden md:block hover:text-shadow" style="text-shadow: 0 0 5px var(--glow-primary);">गृह पृष्ठ</a>
 
-                <!-- Notes Dropdown -->
                 <div class="relative">
-                    <button id="notes-button" class="py-2 px-4 rounded-lg bg-indigo-600 text-white font-medium hover:bg-indigo-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        नोट्स
+                    <button id="notes-button" class="py-2 px-6 rounded-full bg-indigo-600 text-white font-medium hover:bg-indigo-500 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-indigo-500/50 glow-button">
+                        नोट्स <span class="ml-2">&#9662;</span>
                     </button>
-                    <!-- Dropdown Content -->
-                    <div id="notes-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-1 transition-opacity duration-300 opacity-0 invisible">
-                        <a href="i9.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md m-1">कक्षा 11</a>
-                        <a href="i1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md m-1">कक्षा 12</a>
-                        <a href="i0.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md m-1">कक्षा 10</a>
-                        
+                    <div id="notes-dropdown" class="absolute right-0 mt-3 w-48 bg-[rgba(20,18,46,0.8)] backdrop-filter backdrop-blur-lg border border-indigo-900/50 rounded-xl shadow-2xl py-2 transform origin-top-right scale-95 opacity-0 invisible transition-all duration-300">
+                        <a href="i0.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-indigo-500/20 hover:text-white rounded-md m-1 transition-all">कक्षा 10</a>
+                        <a href="i9.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-indigo-500/20 hover:text-white rounded-md m-1 transition-all">कक्षा 11</a>
+                        <a href="i1.html" class="block px-4 py-2 text-sm text-gray-300 hover:bg-indigo-500/20 hover:text-white rounded-md m-1 transition-all">कक्षा 12</a>
                     </div>
                 </div>
-        </div>
+            </div>
         </nav>
     </header>
 
-    <!-- Main Content Section -->
-    <main class="container mx-auto px-4 py-12 md:py-24">
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-12 md:py-24 relative z-10">
         <!-- Hero Section -->
-        <section class="text-center mb-16 md:mb-24">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
-                हिंदी साहित्य की दुनिया में आपका स्वागत है
+        <section id="hero" class="text-center mb-24 md:mb-40 pt-24 md:pt-32">
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-6 leading-tight font-['Playfair_Display'] hero-title" style="text-shadow: 0 0 20px var(--glow-primary), 0 0 40px var(--glow-secondary);">
+                हिंदी साहित्य के ब्रह्मांड में आपका स्वागत है
             </h1>
-            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-                कक्षा 10 ,11 और 12 के छात्रों के लिए विशेष रूप से तैयार की गई अध्ययन सामग्री, नोट्स और अभ्यास प्रश्न। अपनी यात्रा आज ही शुरू करें!
+            <p class="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto mb-10 hero-subtitle">
+                कक्षा 10, 11 और 12 के छात्रों के लिए विशेष रूप से तैयार की गई अध्ययन सामग्री, नोट्स और अभ्यास प्रश्न। अपनी तारकीय यात्रा आज ही शुरू करें!
             </p>
-            
-        </section>
-
-        <!-- Material Sections -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            <!-- Class 10 Section -->
-            
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-300 hover:scale-[1.02]">
-                <h2 class="text-3xl font-bold text-indigo-700 mb-4">कक्षा 10</h2>
-                <p class="text-gray-600 mb-6">
-                    यहां आपको गद्य, पद्य और पूरक पुस्तक से संबंधित नोट्स, सारांश, और महत्वपूर्ण प्रश्न मिलेंगे। कविता की व्याख्या से लेकर कहानी के पात्रों के विश्लेषण तक, सब कुछ एक ही स्थान पर उपलब्ध है।
-                </p>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                    <li>गद्य खंड: नेता जी का चश्मा, बालगोबिन भगत आदि</li>
-                    <li>पद्य खंड: पद , राम लक्ष्मण परशुराम संवाद आदि।</li>
-                    
-                </ul>
-            </div>
-            <!-- Class 11 Section -->
-                
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-300 hover:scale-[1.02]">
-                <h2 class="text-3xl font-bold text-indigo-700 mb-4">कक्षा 11</h2>
-                <p class="text-gray-600 mb-6">
-                    यहां आपको गद्य, पद्य और पूरक पुस्तक से संबंधित नोट्स, सारांश, और महत्वपूर्ण प्रश्न मिलेंगे। कविता की व्याख्या से लेकर कहानी के पात्रों के विश्लेषण तक, सब कुछ एक ही स्थान पर उपलब्ध है।
-                </p>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                    <li>गद्य खंड: नमक का दारोगा, जामुन का पेड़, आदि।</li>
-                    <li>पद्य खंड: कबीर, मीरा, तुलसीदास, आदि।</li>
-                    
-                </ul>
-            </div>
-
-            <!-- Class 12 Section -->
-                    
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 transform transition-all duration-300 hover:scale-[1.02]">
-                <h2 class="text-3xl font-bold text-indigo-700 mb-4">कक्षा 12</h2>
-                <p class="text-gray-600 mb-6">
-                    यह अनुभाग कक्षा 12 के छात्रों के लिए विशेष रूप से डिज़ाइन किया गया है, जिसमें साहित्य, व्याकरण और लेखन कौशल पर गहन अध्ययन सामग्री शामिल है। अपनी परीक्षा की तैयारी को नई दिशा दें।
-                </p>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                    <li>गद्य खंड: पहलवान की ढोलक, चार्ली चैप्लिन, आदि।</li>
-                    <li>पद्य खंड: हरिवंश राय बच्चन, शमशेर बहादुर सिंह, आदि।</li>
-                    <li>अभिव्यक्ति और माध्यम: विभिन्न लेखन कौशल।</li>
-                </ul>
+            <div class="flex justify-center space-x-4 hero-buttons">
+                <a href="#" class="py-3 px-8 rounded-full text-white font-semibold shadow-lg transition-all duration-300 glow-button">
+                    अभी शुरू करें
+                </a>
             </div>
         </section>
-        
-           
+
+        <!-- Poetic Interlude Section -->
+        <section class="my-32 md:my-48 text-center scroll-reveal">
+            <p id="poetic-quote" class="text-2xl md:text-3xl typewriter">
+                "निज भाषा उन्नति अहै, सब उन्नति को मूल।<br>
+बिन निज भाषा-ज्ञान के, मिटत न हिय को सूल।।<br>
+विविध कला शिक्षा अमित, ज्ञान अनेक प्रकार।<br>
+सब देसन से लै करहू, भाषा माहि प्रचार।।।"
+            </p>
+            <span class="mt-6 block text-lg text-gray-400 opacity-80">- साहित्यिक यात्रा</span>
+        </section>
+
+        <!-- Class Sections -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-24">
+            <div class="p-8 magic-card class-card scroll-reveal flex flex-col">
+                <div class="text-indigo-400 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V6.5A2.5 2.5 0 0 0 17.5 4h-10A2.5 2.5 0 0 0 5 6.5v10A2.5 2.5 0 0 1 2.5 19H4z"></path><path d="M12 4V2"></path><path d="M5 6.5L3 8"></path><path d="M2.5 19L1 21"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-4 font-['Playfair_Display']">कक्षा 10</h2>
+                <p class="text-gray-400 mb-6 flex-grow">
+                    गद्य, पद्य और पूरक पुस्तक से संबंधित नोट्स, सारांश, और महत्वपूर्ण प्रश्न।
+                </p>
+                <a href="i0.html" class="text-indigo-400 font-semibold flex items-center group mt-auto">
+                    सामग्री देखें
+                    <span class="ml-2 transition-transform duration-300 group-hover:translate-x-2">&#8594;</span>
+                </a>
+            </div>
+
+            <div class="p-8 magic-card class-card scroll-reveal flex flex-col" style="transition-delay: 0.2s;">
+                <div class="text-fuchsia-400 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M12 4h9M2 20h9M2 4h9"></path><path d="M12 12h9M2 12h9"></path><line x1="12" y1="12" x2="12" y2="12" stroke-width="4"></line><line x1="12" y1="4" x2="12" y2="4" stroke-width="4"></line><line x1="12" y1="20" x2="12" y2="20" stroke-width="4"></line></svg>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-4 font-['Playfair_Display']">कक्षा 11</h2>
+                <p class="text-gray-400 mb-6 flex-grow">
+                    गहन साहित्यिक अध्ययन, व्याकरण और लेखन कौशल के साथ अपनी पढ़ाई को मज़बूत करें।
+                </p>
+                <a href="i9.html" class="text-fuchsia-400 font-semibold flex items-center group mt-auto">
+                    सामग्री देखें
+                    <span class="ml-2 transition-transform duration-300 group-hover:translate-x-2">&#8594;</span>
+                </a>
+            </div>
+
+            <div class="p-8 magic-card class-card scroll-reveal flex flex-col" style="transition-delay: 0.4s;">
+                <div class="text-sky-400 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 10h-2M12 10h-2M6 10h-2"></path><path d="M18 16h-2M12 16h-2M6 16h-2"></path><path d="M18 4H6c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2z"></path></svg>
+                </div>
+                <h2 class="text-3xl font-bold text-white mb-4 font-['Playfair_Display']">कक्षा 12</h2>
+                <p class="text-gray-400 mb-6 flex-grow">
+                    यह अनुभाग कक्षा 12 के छात्रों के लिए विशेष रूप से डिज़ाइन किया गया है, जिसमें गहन अध्ययन सामग्री शामिल है।
+                </p>
+                <a href="i1.html" class="text-sky-400 font-semibold flex items-center group mt-auto">
+                    सामग्री देखें
+                    <span class="ml-2 transition-transform duration-300 group-hover:translate-x-2">&#8594;</span>
+                </a>
+            </div>
+        </section>
         <!-- Creator and Mentor Section -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-            
-            <!-- Mentored By Section -->
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-[1.02]">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4"> मार्गदर्शक </h2>
-                <div class="w-36 h-36 flex-shrink-0 rounded-full overflow-hidden mb-4">
-                    <img src="Ashish.jpg" alt="Mentor Photo" class="w-full h-full object-cover">
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12 my-24">
+            <!-- Mentor Section -->
+            <div class="p-8 magic-card profile-card flex flex-col items-center text-center scroll-reveal">
+                <h2 class="text-2xl font-bold text-white mb-4">मार्गदर्शक</h2>
+                <div class="w-40 h-40 flex-shrink-0 rounded-full overflow-hidden mb-4 profile-image-container">
+                    <!-- TODO: Replace the src attribute with the URL of the mentor's photo -->
+                    <img src="Ashish.jpg" 
+                         alt="Photo of Ashish Singh" 
+                         class="w-full h-full object-cover">
                 </div>
-                <p class="text-lg text-gray-600 font-medium"> आशीष सिंह </p>
+                <p class="text-xl text-gray-300 font-medium">आशीष सिंह</p>
             </div>
+
             <!-- Creator Section -->
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 flex flex-col items-center text-center transform transition-all duration-300 hover:scale-[1.02]">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">वेबसाइट के निर्माता</h2>
-                <div class="w-36 h-36 flex-shrink-0 rounded-full overflow-hidden mb-4">
-                    <img src=" Atharva.jpg" alt="Creator Photo" class="w-full h-full object-cover">
+            <div class="p-8 magic-card profile-card flex flex-col items-center text-center scroll-reveal" style="transition-delay: 0.2s;">
+                <h2 class="text-2xl font-bold text-white mb-4">वेबसाइट के निर्माता</h2>
+                <div class="w-40 h-40 flex-shrink-0 rounded-full overflow-hidden mb-4 profile-image-container">
+                    <!-- TODO: Replace the src attribute with the URL of the creator's photo -->
+                    <img src="Atharva.jpg" 
+                         alt="Photo of Atharva Shukla" 
+                         class="w-full h-full object-cover">
                 </div>
-                <p class="text-lg text-gray-600 font-medium"> अथर्व शुक्ला </p>
+                <p class="text-xl text-gray-300 font-medium">अथर्व शुक्ला</p>
             </div>
-
         </section>
-
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-6 mt-12">
-        <div class="container mx-auto px-4 text-center text-sm">
+    <footer class="bg-transparent text-gray-500 py-6 mt-12 relative z-10">
+        <div class="container mx-auto px-4 text-center text-sm border-t border-indigo-900/30 pt-6">
             &copy; 2024 अभिव्यक्ति : CBSE हिन्दी सभी अधिकार सुरक्षित।
         </div>
     </footer>
@@ -139,30 +334,98 @@
         document.addEventListener('DOMContentLoaded', () => {
             const notesButton = document.getElementById('notes-button');
             const notesDropdown = document.getElementById('notes-dropdown');
+            const mainHeader = document.getElementById('main-header');
 
-            notesButton.addEventListener('click', (event) => {
-                notesDropdown.classList.toggle('opacity-0');
-                notesDropdown.classList.toggle('invisible');
-                // Prevent the click from propagating and closing the dropdown immediately
-                event.stopPropagation();
+            // --- Custom Cursor Logic ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorOutline = document.getElementById('cursor-outline');
+            window.addEventListener('mousemove', e => {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+                cursorOutline.animate({
+                    left: `${posX}px`,
+                    top: `${posY}px`
+                }, { duration: 500, fill: "forwards" });
             });
-
-            // Close the dropdown if the user clicks outside of it
-            document.addEventListener('click', (event) => {
-                if (!notesButton.contains(event.target) && !notesDropdown.contains(event.target)) {
-                    notesDropdown.classList.add('opacity-0');
-                    notesDropdown.classList.add('invisible');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
-
             
+            // --- Card Hover Glow Effect ---
+            document.querySelectorAll('.magic-card').forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    card.style.setProperty('--mouse-x', `${x}px`);
+                    card.style.setProperty('--mouse-y', `${y}px`);
+                });
+            });
+
+            // --- Starfield Background ---
+            const canvas = document.getElementById('starfield-canvas');
+            const ctx = canvas.getContext('2d');
+            let stars = [];
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            function createStars() {
+                stars = [];
+                for (let i = 0; i < 400; i++) {
+                    stars.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 1.5 + 0.5,
+                        alpha: Math.random() * 0.5 + 0.5,
+                        dx: (Math.random() - 0.5) * 0.2,
+                        dy: (Math.random() - 0.5) * 0.2
+                    });
+                }
+            }
+
+            function drawStars() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                stars.forEach(star => {
+                    ctx.beginPath();
+                    ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(224, 224, 224, ${star.alpha})`;
+                    ctx.fill();
+                });
+            }
+
+            function updateStars() {
+                stars.forEach(star => {
+                    star.x += star.dx;
+                    star.y += star.dy;
+                    if (star.x < 0 || star.x > canvas.width) star.dx = -star.dx;
+                    if (star.y < 0 || star.y > canvas.height) star.dy = -star.dy;
+                });
+            }
+
+            function animateStars() {
+                drawStars();
+                updateStars();
+                requestAnimationFrame(animateStars);
+            }
+            createStars();
+            animateStars();
+
+            // --- Parallax on Hero ---
+            const hero = document.getElementById('hero');
+            hero.addEventListener('mousemove', (e) => {
+                const { clientX, clientY } = e;
+                const { offsetWidth, offsetHeight } = hero;
+                const x = (clientX / offsetWidth - 0.5) * 40;
+                const y = (clientY / offsetHeight - 0.5) * 40;
+                hero.style.transform = `perspective(1000px) rotateY(${-x / 2}deg) rotateX(${y / 2}deg) scale(1.05)`;
+            });
+            hero.addEventListener('mouseleave', () => {
+                hero.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1)';
+            });
 
 
-
-
-
-
+            // Dro
